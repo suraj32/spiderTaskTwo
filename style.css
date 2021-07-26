@@ -1,0 +1,58 @@
+canvas { 
+    border: 1px solid black ; 
+}
+#name-img{
+    width: 30px;
+    margin: 0px 0px 0px 0px;
+}
+header{
+    text-align: center;
+    background-color: rgb(156, 163, 201);
+    padding: 5px,5px,5px,5px;
+}
+h1{
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    color: #291580;
+    text-shadow: 1px 2px 1px rgba(40, 150, 30, 0.719);
+}
+body{
+    width: 800px;
+    margin: 0 auto;
+    background-color: rgb(255, 255, 255);
+    padding: 10px 10px 10px 10px;
+    border: 5px solid rgb(12, 93, 160);
+}
+button {
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 4px 4px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 5px #999;
+  }
+button:hover {
+    background-color: rgb(70, 168, 207);
+}
+button:active {
+    background-color: rgb(35, 139, 224);
+    box-shadow: 0 2px #666;
+}
+#modal{
+    display: none;
+    margin: auto;
+    padding: 10px;
+    border: 10px solid #888;
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0,0,0,0.3); /* Black w/ opacity */
+}
+#score,#highscore{
+    font-size: 20px;
+    color: rgb(19, 117, 16);
+}

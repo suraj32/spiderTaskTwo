@@ -6,10 +6,11 @@ Git commands I used in process:
 - git push
 
 Required Sub-tasks to be completed:
-- [ ] design and motion of spaceship
-- [ ] design,creation and motion of aliens
+- [x] collection of spaceship,alien images and editing
+- [x] motion of spacecraft,aliens
 - [ ] alien,spaceship interference
-- [ ] spaceship shooting ability
+- [x] spaceship shooting ability
 - [ ] bullet,alien interference
+- [x] set timer
 - [ ] scoring system,scoreboard design
 - [ ] level change system
