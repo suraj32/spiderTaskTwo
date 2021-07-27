@@ -4,7 +4,7 @@ ctx.globalCompositeOperation = 'source-over';
 
 function replay() { location.reload(); }
 let kills = 0;
-let level=1;
+let level = 1;
 
 let spaceCraft = new Image();
 let alien_1 = new Image();
@@ -213,10 +213,11 @@ function changeScore() {
     distance = 60 * 5 * sec; //in px //animation is in 60 frames per sec and speed is 5
     //Bonus score for more distance
     r = distance < 6000 ? 1 : distance < 12000 ? 1.5 : distance < 24000 ? 2 : distance < 48000 ? 2.5 : 3; //According to level up
-    score = Math.floor(distance * r * 0.01 + kills * 100 * speed);
-    level = sec<20 ? 1: sec<40 ? 2: sec<80 ? 3: sec<120? 4:5;
-    console.log("level:"+level);
-    document.getElementById("scoreBoard").innerHTML = "Level: "+ level + "||🎯Score: " + score;
+    level = sec < 20 ? 1 : sec < 40 ? 2 : sec < 80 ? 3 : sec < 120 ? 4 : 5;
+    console.log("level:" + level);
+    bonus = level == 1 ? 0 : level == 2 ? 1000 : level == 3 ? 1500 : level == 4 ? 2000 : 2500; //bonus points
+    score = Math.floor(distance * r * 0.01 + kills * 100 * speed + bonus);
+    document.getElementById("scoreBoard").innerHTML = "Level: " + level + "||🎯Score: " + score;
 }
 
 function displayScore() {
