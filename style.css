@@ -40,6 +40,15 @@ button:active {
     background-color: rgb(35, 139, 224);
     box-shadow: 0 2px #666;
 }
+#scoreBoard{
+    font-size: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid rgb(112, 56, 168);
+    background-color: rgb(250, 247, 243);
+    border-radius: 10px;
+    text-align: center;
+    float: right;
+}
 #modal{
     display: none;
     margin: auto;

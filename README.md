@@ -8,9 +8,9 @@ Git commands I used in process:
 Required Sub-tasks to be completed:
 - [x] collection of spaceship,alien images and editing
 - [x] motion of spacecraft,aliens
-- [ ] alien,spaceship interference
+- [x] alien,spaceship interference
 - [x] spaceship shooting ability
 - [ ] bullet,alien interference
 - [x] set timer
-- [ ] scoring system,scoreboard design
+- [x] scoring system,scoreboard design
 - [ ] level change system
