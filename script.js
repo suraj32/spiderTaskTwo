@@ -3,7 +3,8 @@ var ctx = canvas.getContext('2d');
 ctx.globalCompositeOperation = 'source-over';
 
 function replay() { location.reload(); }
-let kills=0;
+let kills = 0;
+let level=1;
 
 let spaceCraft = new Image();
 let alien_1 = new Image();
@@ -47,11 +48,14 @@ var bullet = {
 
 status1 = "live";
 status2 = "live";
+speed = 1;
 var alien1 = {
     x: 800,
     y: 250,
     draw: function () {
         if (status1 != "hit") {
+            speed = sec < 20 ? 1 : sec < 40 ? 1.3 : sec < 80 ? 1.6 : sec < 120 ? 1.8 : 2 //speed variance a/c to level up
+            console.log(speed);
             ctx.drawImage(alien_1, this.x, this.y, 70, 70);
         }
     }
@@ -141,9 +145,10 @@ start.addEventListener('click', function () {
     motion2 = window.requestAnimationFrame(alien1Move);
     timeout = setTimeout(function () { motion3 = window.requestAnimationFrame(alien2Move); }, 1500);
 });
+
 function alien1Move() {
     if (alien1.x > -70) {
-        alien1.x -= 5;
+        alien1.x -= 5 * speed;
         motion2 = window.requestAnimationFrame(alien1Move);
     }
     else {
@@ -165,7 +170,7 @@ function alien1Move() {
 }
 function alien2Move() {
     if (alien2.x > -70) {
-        alien2.x -= 5;
+        alien2.x -= 5 * speed;
         motion3 = window.requestAnimationFrame(alien2Move);
     }
     else {
@@ -207,9 +212,11 @@ let r;
 function changeScore() {
     distance = 60 * 5 * sec; //in px //animation is in 60 frames per sec and speed is 5
     //Bonus score for more distance
-    r = distance < 6000 ? 1 : distance < 12000 ? 1.5 : distance < 24000 ? 2 : distance < 48000 ? 2.5 : 3;
-    score = Math.floor(distance * r * 0.01 + kills*100);
-    document.getElementById("scoreBoard").innerHTML = "🎯Score: " + score;
+    r = distance < 6000 ? 1 : distance < 12000 ? 1.5 : distance < 24000 ? 2 : distance < 48000 ? 2.5 : 3; //According to level up
+    score = Math.floor(distance * r * 0.01 + kills * 100 * speed);
+    level = sec<20 ? 1: sec<40 ? 2: sec<80 ? 3: sec<120? 4:5;
+    console.log("level:"+level);
+    document.getElementById("scoreBoard").innerHTML = "Level: "+ level + "||🎯Score: " + score;
 }
 
 function displayScore() {
@@ -221,7 +228,7 @@ function displayScore() {
         hs = score;
     }
     localStorage.setItem("BEST", hs);
-    document.getElementById("score").innerHTML = "Kills = "+ kills+ " ,Your Score: " + score;
+    document.getElementById("score").innerHTML = "Kills = " + kills + " ,Your Score: " + score;
     document.getElementById("highscore").innerHTML = "⚡High Score:" + hs;
 }
 
