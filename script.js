@@ -1,6 +1,9 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-ctx.globalCompositeOperation = 'destination-over';
+ctx.globalCompositeOperation = 'source-over';
+
+function replay() { location.reload(); }
+let kills=0;
 
 let spaceCraft = new Image();
 let alien_1 = new Image();
@@ -17,9 +20,6 @@ alien_1.onload = function () {
 alien_2.onload = function () {
     ctx.drawImage(alien_2, 0, 0, 0, 0);
 };
-
-
-function replay() { location.reload(); }
 
 laser = new Audio("laser.mp3");
 bgm = new Audio("bgm.mp3");
@@ -45,18 +45,24 @@ var bullet = {
     }
 }
 
+status1 = "live";
+status2 = "live";
 var alien1 = {
     x: 800,
     y: 250,
     draw: function () {
-        ctx.drawImage(alien_1, this.x, this.y, 70, 70);
+        if (status1 != "hit") {
+            ctx.drawImage(alien_1, this.x, this.y, 70, 70);
+        }
     }
 }
 var alien2 = {
     x: 800,
     y: 250,
     draw: function () {
-        ctx.drawImage(alien_2, this.x, this.y, 70, 70);
+        if (status2 != "hit") {
+            ctx.drawImage(alien_2, this.x, this.y, 70, 70);
+        }
     }
 }
 
@@ -107,6 +113,18 @@ function shoot() {
     else {
         window.cancelAnimationFrame(motion1);
     }
+    if ((Math.abs(bullet.x - alien1.x) <= 20) && (Math.abs(bullet.y + 3 - alien1.y - 35) <= 38)) {
+        status1 = "hit";
+        bullet.x = 900;
+        new Audio("kill.mpeg").play();
+        kills++;
+    }
+    if ((Math.abs(bullet.x - alien2.x) <= 20) && (Math.abs(bullet.y + 3 - alien2.y - 35) <= 38)) {
+        status2 = "hit";
+        bullet.x = 900;
+        new Audio("kill.mpeg").play();
+        kills++;
+    }
 }
 
 let sec = 0;
@@ -129,11 +147,12 @@ function alien1Move() {
         motion2 = window.requestAnimationFrame(alien1Move);
     }
     else {
+        status1 = "live"; //revive
         alien1.x = 800;
         alien1.y = 431 * Math.random();
         window.requestAnimationFrame(alien1Move);
     }
-    if ((Math.abs(craft.x - alien1.x) < 100) && (Math.abs(craft.y + 40 - alien1.y - 35) <= 75)) {
+    if (status1 == "live" && (Math.abs(craft.x - alien1.x) < 80) && (Math.abs(craft.y + 40 - alien1.y - 35) <= 75)) {
         endGame();
         console.log(craft.x);
         console.log("alien2 " + alien1.x);
@@ -150,11 +169,12 @@ function alien2Move() {
         motion3 = window.requestAnimationFrame(alien2Move);
     }
     else {
+        status2 = "live"; //revive
         alien2.x = 800;
         alien2.y = 431 * Math.random();
         window.requestAnimationFrame(alien2Move);
     }
-    if ((Math.abs(craft.x - alien2.x) < 100) && (Math.abs(craft.y + 40 - alien2.y - 35) <= 75)) {
+    if (status2 == "live" && (Math.abs(craft.x - alien2.x) < 80) && (Math.abs(craft.y + 40 - alien2.y - 35) <= 75)) {
         endGame();
         console.log(craft.x);
         console.log("alien1 " + alien1.x);
@@ -188,7 +208,7 @@ function changeScore() {
     distance = 60 * 5 * sec; //in px //animation is in 60 frames per sec and speed is 5
     //Bonus score for more distance
     r = distance < 6000 ? 1 : distance < 12000 ? 1.5 : distance < 24000 ? 2 : distance < 48000 ? 2.5 : 3;
-    score = Math.floor(distance * r * 0.01);
+    score = Math.floor(distance * r * 0.01 + kills*100);
     document.getElementById("scoreBoard").innerHTML = "🎯Score: " + score;
 }
 
@@ -201,7 +221,7 @@ function displayScore() {
         hs = score;
     }
     localStorage.setItem("BEST", hs);
-    document.getElementById("score").innerHTML = "Your Score: " + score;
+    document.getElementById("score").innerHTML = "Kills = "+ kills+ " ,Your Score: " + score;
     document.getElementById("highscore").innerHTML = "⚡High Score:" + hs;
 }
 

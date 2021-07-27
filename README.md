@@ -10,7 +10,7 @@ Required Sub-tasks to be completed:
 - [x] motion of spacecraft,aliens
 - [x] alien,spaceship interference
 - [x] spaceship shooting ability
-- [ ] bullet,alien interference
+- [x] bullet,alien interference
 - [x] set timer
 - [x] scoring system,scoreboard design
 - [ ] level change system
